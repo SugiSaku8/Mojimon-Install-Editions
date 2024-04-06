@@ -1,0 +1,1030 @@
+@font-face {
+	font-family: 'mojimon';
+        font-display:"swap";
+	src: url('font/KleeOne-Regular.ttf');
+}
+
+@font-face{
+	font-family:'Noto Sans JP';
+        font-display:"swap";
+	src: url('font/NotoSansJP-Regular.ttf');
+}
+@font-face{
+        font-family:'number';
+        font-display:"swap";
+        src: url('font/ZenKakuGothicNew-Light.ttf');
+}
+@font-face{
+	font-family:'kaisei';
+        font-display:"swap";
+	src: url('font/KaiseiOpti-Regular.ttf');
+}
+
+@font-face{
+        font-family:'MP';
+        font-display:"swap";
+        src: url('font/MPLUS1p-Thin.ttf');
+}
+
+@font-face {
+  font-family: 'cf';
+  src:  url('font/CF/icomoon.eot?qtrohe');
+  src:  url('font/CF/icomoon.eot?qtrohe#iefix') format('embedded-opentype'),
+    url('font/CF/icomoon.ttf?qtrohe') format('truetype'),
+    url('font/CF/icomoon.woff?qtrohe') format('woff'),
+    url('font/CF/icomoon.svg?qtrohe#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display:"swap";
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'cf' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.notification{
+  position: fixed; /* 画面の右下に固定 */
+   bottom: 20px; /* 下側からの距離 */
+   right: 20px;
+}
+.notification-text {
+  position: fixed; /* 画面の右下に固定 */
+   bottom: 20px; /* 下側からの距離 */
+   right: 20px;
+ background-color: rgba(255, 255, 255, 0.1); /* 背景色 */
+ border: 1px solid rgba(255, 255, 255, 0.4); /* ボーダー */
+ border-radius: 15px;
+ -webkit-backdrop-filter: blur(20px); /* ぼかしエフェクト */
+ backdrop-filter: blur(20px);
+ box-shadow: 0 5px 20px rgba(161, 216, 255,0.8); /* 薄い影 */
+ padding: 20px; /* 内側の余白 */
+ color: #fff; /* テキスト色 */
+  opacity: 0;
+   transition: opacity 0.5s ease;
+  border-radius: 10px;
+  width:auto;
+  height:auto;
+}
+
+
+.notification:hover .notification-text {
+ opacity: 1;
+}
+
+#other_user{
+  float: right;
+}
+#me_user{
+  float: left;
+}
+
+#zukan {
+  display: none;
+}
+
+.overlay {
+    position: fixed;
+    top:  0;
+    left:  0;
+    width:  100%;
+    height:  100%;
+    background-color: rgba(0,  0,  0,  0.5); /*  黒色の半透明背景 */
+    z-index:  9999; /*  他の要素の上に表示 */
+}
+
+
+#chat_app {
+  position: fixed;
+  display:none;
+  top:  0;
+  right:  0;
+  width:  500px;
+  margin:  50px auto;
+  background-color: rgba(255,  255,  255,  0.8);
+  padding:  20px;
+  border-radius:  10px;
+  box-shadow:  0  10px  20px rgba(0,  0,  0,  0.1);
+  z-index:  200; /* Ensure the chat app is above other elements */
+}
+
+#chat_header {
+    display: flex;
+    align-items: center;
+    margin-bottom:  20px;
+}
+
+#user_avatar {
+    width:  40px;
+    height:  40px;
+    border-radius:  50%;
+    margin-right:  10px;
+}
+
+#user_name {
+    font-size:  18px;
+    font-weight: bold;
+}
+
+#message_list {
+    list-style-type: none;
+    padding:  0;
+    overflow-y: scroll;
+    height:  300px;
+    margin-bottom:  20px;
+}
+
+.message_bubble {
+    padding:  10px;
+    margin-bottom:  10px;
+    border-radius:  15px;
+    clear: both;
+}
+
+.user_message {
+    background-color: #13178E;
+    color: white;
+    float: left;
+}
+
+.friend_message {
+    background-color: #f0f0f0;
+    color: black;
+    float: right;
+}
+
+#message_form {
+    display: flex;
+    justify-content: space-between;
+}
+
+#message_input {
+    flex-grow:  1;
+    margin-right:  10px;
+    padding:  5px;
+    border-radius:  5px;
+    border:  1px solid #ccc;
+}
+
+#message_form button {
+    padding:  5px  10px;
+    border: none;
+    border-radius:  5px;
+    background-color: #13178E;
+    color: white;
+    cursor: pointer;
+}
+
+#message_form button:hover {
+    background-color: #333;
+}
+
+
+#mojimon-zukan {
+    position: absolute;
+    top:  50%;
+    left:  50%;
+    transform: translate(-50%, -50%); /*  中央に配置 */
+    width:  80%; /*  画面の幅の80% */
+    height:  80%; /*  画面の高さの80% */
+    background-color: #dcffff; /*  指定された色 */
+    border-radius:  10px; /*  角を少し丸める */
+    padding:  20px; /*  内側の余白 */
+    box-sizing: border-box; /*  ボックスサイズの計算方法 */
+    z-index:  10000; /*  オーバーレイよりも上に表示 */
+}
+
+#message-input {
+  flex-grow:  1;
+  margin-right:  10px;
+}
+
+#customDialog {
+  position: fixed;
+  top:  50%;
+  left:  50%;
+  transform: translate(-50%, -50%);
+  width:  500px;
+  height: auto;
+  padding:  20px;
+  background-color: rgba(255,  255,  255,  0.45);
+  border-radius:  10px;
+  border:  1px solid rgba(255,  255,  255,  0.25);
+  box-shadow:  0  0  10px  1px rgba(0,  0,  0,  0.25);
+  backdrop-filter: blur(15px);
+  z-index:  1000;
+}
+
+#dialogTitle {
+  margin:  0;
+  font-size:  1.5em;
+  font-weight: bold;
+}
+
+#dialogContent {
+  margin:  1em  0;
+  font-size:  1em;
+}
+
+#dialogCloseButton {
+  float: right;
+  margin-top:  1em;
+  padding:  0.5em  1em;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-size:  1em;
+}
+
+#dialog-overlay {
+  position: fixed;
+  top:  0;
+  left:  0;
+  width:  100%;
+  height:  100%;
+  background: rgba(0,  0,  0,  0.5);
+  backdrop-filter: blur(5px);
+  z-index:  999;
+}
+
+
+.play{
+  display:none;
+}
+/*  ダイアログのオーバーレイ */
+.setup_dia .setup_dia-overlay {
+  position: fixed;
+  top:  0;
+  left:  0;
+  right:  0;
+  bottom:  0;
+  background-color: rgba(0,  0,  0,  0.5);
+  z-index:  10;
+}
+
+/*  ダイアログ本体 */
+.setup_dia .setup_dialog {
+  position: fixed;
+  top:  50%;
+  left:  50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255,  255,  255,  0.1); /* 背景色 */
+  border:  1px solid rgba(255,  255,  255,  0.4); /*  ボーダー */
+  border-radius:  15px;
+  padding:  20px;
+  width:  80%;
+  max-width:  400px;
+  z-index:  100;
+  backdrop-filter: blur(10px); /* ぼかしエフェクト */
+  box-shadow:  0  5px  20px rgba(0,  0,  0,  0.3); /*  影 */
+}
+
+/*  ダイアログ内の要素 */
+.setup_dia .setup_dialog h2 {
+  margin:  0  0  10px;
+  font-size:  1.5rem;
+  color: white;
+}
+
+.setup_dia .setup_dialog p {
+  color: white;
+  line-height:  1.5;
+}
+
+.setup_dia .setup_dialog button {
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  padding:  10px  20px;
+  cursor: pointer;
+  border-radius:  5px;
+  transition: background-color  0.3s ease;
+}
+
+.setup_dia .setup_dialog button:hover {
+  background-color: #0056b3;
+}
+
+.User_contena {
+  display: block;
+  position: relative;
+  width:  120px; /* Set the width to match the image size */
+  height: 120px; /* Set the height to match the image size */
+}
+
+.User_contena img {
+  width:  64px; /* The image will fill the container */
+  height: 64px; /* The height will adjust automatically to maintain aspect ratio */
+}
+
+.User_contena .text {
+  width:32px;
+  height:16px;
+  position: absolute;
+  top:  50%; /* Vertical centering */
+  left:  50%; /* Horizontal centering */
+  transform: translate(-50%, -50%); /* Center the text */
+  opacity:  0.8;
+  z-index:  1; /* Ensures text appears above the image */
+  background-color: rgba(255,  255,  255,  0.5); /* Semi-transparent white background */
+  color: black; /* Initial text color */
+  padding:  10px; /* Optional padding */
+  width: calc(100% -  20px); /* Width minus padding */
+  max-width:  100%; /* Prevent overflow */
+  text-align: center; /* Center the text horizontally */
+}
+
+
+/* Glass UI effect */
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+  .User_contena .text {
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+  }
+}
+
+/* Hover effect to reverse colors */
+.User_contena:hover .text {
+  opacity:  1;
+  background-color: rgba(0,  0,  0,  0.5); /* Darker background on hover */
+  color: white; /* Text color on hover */
+  transition: background-color  0.3s ease, color  0.3s ease; /* Smooth transition */
+}
+
+
+
+.inventory {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Creates a 5x5 grid */
+    grid-auto-rows: 1fr; /* Creates rows that fit the content */
+    gap: 5px; /* Adjust as needed */
+}
+
+#cell {
+    border: 1px solid black; /* Adjust as needed */
+    padding: 10px; /* Adjust as needed */
+}
+
+.inventory img{
+        width:30%;
+        height:30%;
+}
+
+#health-bar {
+        display:none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.health-icon {
+    width: 25px; /* アイコンのサイズ */
+    height: auto;
+    margin-right: 5px; /* アイコン間の間隔 */
+}
+
+body {
+        user-select: none;
+	font-family: 'mojimon','cf';
+        
+}
+#joystick {
+ position: fixed;
+ right: 20px;
+ bottom: 20px;
+ width: 100px;
+ height: 100px;
+ border: 1px solid #000;
+ border-radius: 50%;
+ display: none;
+ justify-content: center;
+ align-items: center;
+ background-color: rgba(255, 255, 255, 0.5);
+ padding: 10px;
+ box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
+
+.arrow {
+ width: 0;
+ height: 0;
+ border-left: 20px solid transparent;
+ border-right: 20px solid transparent;
+}
+
+#arrow-up {
+ border-bottom: 20px solid #f00;
+}
+
+#arrow-right {
+ border-top: 20px solid #0f0;
+ transform: rotate(90deg);
+}
+
+#arrow-down {
+ border-top: 20px solid #00f;
+ transform: rotate(180deg);
+}
+
+#arrow-left {
+ border-top: 20px solid #f0f;
+ transform: rotate(-90deg);
+}
+
+
+
+
+
+#account_touroku_form{
+        background-image: url(/img/back.jpg);
+        background-size: cover;
+        background-position: top center;
+        text-align: center;
+        margin: 0 auto;
+        display: inline-block;
+        position: absolute;
+        width:100%;
+        height:100%;
+        color:white;
+}
+
+#account_login_form{
+        background-image: url(/img/back.jpg);
+        background-size: cover;
+        background-position: top center;
+        text-align: center;
+        margin: 0 auto;
+        display: inline-block;
+        position: absolute;
+        width:100%;
+        height:100%;
+        color:white;
+}
+
+.setup{
+         background-image: url(/img/back.jpg);
+        background-size: cover;
+  background-position: top center;
+        text-align: center;
+        margin: 0 auto;
+        display: inline-block;
+        position: absolute;
+        width:100%;
+        height:100%;
+}
+
+#tokusyu{
+        dipslay:none;
+}
+
+#map{
+        transition: opacity 1s ease-in-out;
+        display:none;
+          position: relative;
+          width: 150%;
+          min-height: 100vh;
+}
+
+#splashScreen {
+ position: fixed;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+ display:block;
+}
+
+
+#main_battle{
+	display: none;
+}
+
+   #SKIN {
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+
+   }
+
+#skinContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.ms {
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+        cursor:pointer;
+   }
+
+.mc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+.info {
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 40px auto;
+    padding: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+area{
+        cursor:pointer;
+}
+
+.info-title {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.info-body {
+    font-size: 16px;
+    color: #666;
+}
+
+.fire {
+	color: orangered;
+}
+
+.water {
+	color: aqua;
+}
+
+.waterB {
+        width:auto;
+	background-color: skyblue;
+}
+
+.white {
+	background-color: white;
+}
+
+.yellow {
+	background-color: yellow;
+}
+
+.red {
+	background-color: red;
+}
+
+.gray {
+	background-color: lightgray;
+}
+
+.black {
+	background-color: black;
+}
+
+.greenB {
+	background-color: chartreuse;
+}
+
+.green{
+  background-color:green
+}
+.{
+  background-color:green;
+}
+.greenbtn :hover{
+        background-color:#00ff00;
+}
+html {
+	font-family: 'mojimon';
+}
+
+button {
+	width: 150px;
+	font-family: 'mojimon';
+	font-weight: bold;
+	height: 50px;
+}
+
+.mini_button {
+	width: 75px;
+  height:25px;
+	font-family: 'mojimon';
+	font-weight: bold;
+}
+
+#start_window {
+  top:  0;
+  right:  0;
+  bottom:  0;
+  left:  0;
+  width:  100%;
+  height:  100%;
+	top:0;
+	/*background-color: #ffffff;*/
+        background-image: url(/img/back.jpg);
+        background-size: cover;
+        background-position: top center;
+	z-index:9999999999;
+	text-align: center;
+  margin: 0 auto;
+  display: inline-block;
+}
+#title_window + p {
+  margin-top:  0;
+  padding-top:  0;
+}
+#start_window button {
+  margin-top:  0;
+  padding-top:  0;
+}
+#title_window{
+  width:480px;
+  height:350px;
+	margin:0 auto;
+	text-align: center;
+	display: inline-block;
+}
+
+#title {
+        top:0;
+	background-color:#fad314;
+	color:#ffbb00;
+	-webkit-text-stroke: 2px #0033ff;
+	text-stroke: 2px #0033ff;
+	font-family: 'Noto Sans JP', sans-serif;
+	font-size:120px;
+	text-align: center;
+	text-shadow: 1px 8px 6px #525252;
+	box-shadow: 0 10px 25px 0 rgba(0, 0, 0, .5);
+}
+
+.start{
+	top:0;
+	text-align:center;
+	font-family: 'kaisei';
+	background-color:#fad314;
+	width:350px;
+	height:150px;
+	font-size:65px;
+
+}
+
+.start:hover{
+	font-size:70px;
+	top:0;
+	text-align:center;
+	font-family: 'kaisei';
+	background-color:#fad314;
+	width:350px;
+	height:150px;
+}
+.single{
+  top:0;
+  text-align:center;
+  margin: 0 auto;
+  font-family: 'kaisei';
+  background-color:#fad314;
+  width:350px;
+  height:150px;
+  font-size:65px;
+
+}
+
+.single:hover{
+  font-size:70px;
+  top:0;
+  text-align:center;
+  margin: 0 auto;
+
+  font-family: 'kaisei';
+  background-color:#fad314;
+  width:350px;
+  height:150px;
+}
+.multi{
+  top:0;
+  text-align:center;
+  margin: 0 auto;
+  font-family: 'kaisei';
+  background-color:#fad314;
+  width:400px;
+  height:150px;
+  font-size:60px;
+
+}
+.multi:hover{
+  font-size:62px;
+  top:0;
+  text-align:center;
+  margin: 0 auto;
+
+  font-family: 'kaisei';
+  background-color:#fad314;
+}
+
+#help{
+        top:0;
+        text-align:center;
+        font-family: 'kaisei';
+        background-color:#fad314;
+        width:300px;
+        height:100px;
+        font-size:40px;
+}
+
+#help:hover{
+        font-size:50px;
+        top:0;
+        text-align:center;
+        font-family: 'kaisei';
+        background-color:#fad314;
+        width:300px;
+        height:100px;
+}
+
+.container {
+  max-width:600px;
+  margin:0 auto;
+  text-align:center;
+  -webkit-border-radius:6px;
+  -moz-border-radius:6px;
+  border-radius:6px;
+  background-color:#FAFAFA;
+  display:none;
+}
+
+.head {
+  -webkit-border-radius:6px 6px 0px 0px;
+  -moz-border-radius:6px 6px 0px 0px;
+  border-radius:6px 6px 0px 0px;
+  background-color:#2ABCA7;
+  color:#FAFAFA;
+}
+
+h2 {
+  text-align:center;
+  padding:18px 0 18px 0;
+  font-size: 1.4em;
+}
+
+input {
+  margin-bottom:10px;
+}
+
+textarea {
+  height:100px;
+  margin-bottom:10px;
+}
+
+input:first-of-type
+{
+  margin-top:35px;
+}
+
+input, textarea {
+  font-size: 1em;
+  padding: 15px 10px 10px;
+  font-family: 'Source Sans Pro',arial,sans-serif;
+  border: 1px solid #cecece;
+  background: #d7d7d7;
+  color:#FAFAFA;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 80%;
+  max-width: 600px;
+}
+
+::-webkit-input-placeholder {
+   color: #FAFAFA;
+}
+
+:-moz-placeholder {
+   color: #FAFAFA;  
+}
+
+::-moz-placeholder {
+   color: #FAFAFA; 
+}
+
+:-ms-input-placeholder {  
+   color: #FAFAFA;  
+}
+
+button {
+  width:150px;
+  font-family:'mojimon';
+  font-weight: bold;
+  height:50px;
+  cursor:pointer;
+  
+}
+
+button:hover, .button:hover {
+  background:white;
+        cursor:pointer;
+}
+
+label.error {
+    font-family:'Source Sans Pro',arial,sans-serif;
+    font-size:1em;
+    display:block;
+    padding-top:10px;
+    padding-bottom:10px;
+    background-color:#d89c9c;
+    width: 80%;
+    margin:auto;
+    color: #FAFAFA;
+    -webkit-border-radius:6px;
+    -moz-border-radius:6px;
+    border-radius:6px;
+}
+
+@media (max-width: 700px) {
+	
+  label.error {
+    width: 90%;
+  }
+	
+  input, textarea {
+    width: 90%;
+  }
+	
+  button {
+    width:90%;
+  }
+	
+  body {
+  padding-top:10px;
+  }
+	
+}
+
+.modal {
+ font-family: 'number'; 
+ display:none;
+ position: fixed;
+ z-index: 1;
+ left: 0;
+ top: 0;
+ width: 100%;
+ height: 100%;
+ overflow: auto;
+ z-index:9;
+ background-color: rgba(0,0,0,0.4);
+}
+
+.popup {
+ font-family: 'number'; 
+ position: absolute;
+ z-index: 1;
+ left: 50%;
+ top: 50%;
+ transform: translate(-50%, -50%);
+ padding: 20px;
+ background-color: #fff;
+ border: 1px solid #ccc;
+ border-radius: 5px;
+}
+
+.popup h2{
+         font-family: 'number'; 
+        font-color:#000000;
+        font-size:50px;
+        background-color:#cccfff;
+}
+
+.popup p{
+         font-family: 'number'; 
+        font-color:#000000;
+        font-size:50px;
+        /*background-color:#cccfff;*/
+}
+
+.button {
+ font-family: 'MP'; 
+ font-size: 20px;
+ padding: 10px 20px;
+ margin: 10px;
+ color: #fff;
+ background-color: #007BFF;
+ border: none;
+ cursor: pointer;
+ border-radius: 5px;
+ width:280px;
+}
+
+.button:hover {
+ background-color: #007BFF;
+}
+
+.popup h2{
+         font-family: 'MP'; 
+        font-color:#000000;
+        font-size:50px;
+        background-color:#cccfff;
+}
+.popup p{
+         font-family: 'MP'; 
+        font-color:#000000;
+        font-size:50px;
+        background-color:#cccfff;
+}
+
+
+.glass {
+ background: linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(255,255,255,0.3));
+}
+
+.rounded {
+ border-radius: 5px;
+}
+
+#dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 255, 255, 0.1); /* 背景色 */
+  border: 1px solid rgba(255, 255, 255, 0.4); /* ボーダー */
+  border-right-color: rgba(255, 255, 255, 0.2);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  -webkit-backdrop-filter: blur(20px); /* ぼかしエフェクト */
+  backdrop-filter: blur(20px);
+  box-shadow: 0 5px 20px rgba(255, 152, 79, 0.5); /* 薄い影 */
+  padding: 20px;
+  color: black;
+}
+
+
+.glassButton {
+ background: rgba(255, 255, 255, 0.1);
+ border: 1px solid rgba(255, 255, 255, 0.4);
+ border-radius: 15px;
+ box-shadow: 0 5px 20px rgba(255, 152, 79, 0.5);
+ padding: 10px 20px;
+ color: #130101;
+ font-size: 16px;
+ cursor: pointer;
+ transition: all 0.3s ease;
+ position: relative;
+ overflow: hidden;
+}
+
+.glassButton:hover {
+ background: rgba(255, 255, 255, 0.2);
+}
+
+.glassButton:active {
+ transform: scale(0.95);
+}
+
+#dialogueOverlay {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+}
+
+#dialogueMessage {
+  color: white;
+  position: absolute;
+  bottom: 10px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
